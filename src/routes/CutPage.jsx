@@ -17,11 +17,68 @@ const CutPage = () => {
 
     const [cutClick, setCutClick] = useState(false)
 
+    const [storageHandler, setStorageHandler] = useState(localStorage.getItem('storageHandler'))
+    const [listaCorteData, setListaCorteData] = useState(JSON.parse(localStorage.getItem('listaCorteData')))
+    const [listagemData, setListagemData] = useState(JSON.parse(localStorage.getItem('listagemData')))
+
+
+
+    useEffect(() => {
+
+        setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
+
+        if (listaCorteData) {
+
+            setListaCorte([...listaCorteData])
+            setListagem([...listagemData])
+
+        }
+
+        localStorage.setItem('storageHandler', '0')
+
+    }, [storageHandler])
+
+
+    function reload() {
+
+        localStorage.clear()
+        window.location.reload()
+
+    }
+
+    function saveData() {
+
+        localStorage.setItem('listaCorteData', JSON.stringify(listaCorte.map((peca) => {
+
+            if(peca.cortado === true) {
+
+                peca.cortado = false 
+
+                let pecaw = peca.w * 5
+                let pecah = peca.h * 5
+                peca.w = pecaw - 4
+                peca.h = pecah - 4
+                peca.x = null
+                peca.y = null
+        
+            }
+
+            return peca
+
+        })))
+        localStorage.setItem('listagemData', JSON.stringify(listagem))
+
+        localStorage.setItem('storageHandler', '1')
+
+        window.location.reload()
+
+    }
 
     function handleListaCorte() {
 
         let peca = {peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null, quantidade: Number(quantidade)}
         setListagem([...listagem, peca])
+
         let corte = []
 
         for(let i = 0; i < peca.quantidade; i++) {
@@ -32,15 +89,17 @@ const CutPage = () => {
 
         setListaCorte([...listaCorte, ...corte])
 
+
         setW('')
         setH('')
         setQuantidade('')
+
     }
 
 
     useEffect(() => {
 
-        setListaCorte(listaCorte.filter(peca => peca.cortado === false))
+        setListaCorte([...listaCorte])
 
     }, [cutClick])
 
@@ -68,7 +127,8 @@ const CutPage = () => {
                 
                 <button className="border-2 border-black" onClick={handleListaCorte}>Adicionar</button>
                 <button className="border-2 border-black" onClick={() => setCutClick(!cutClick)}>Cortar</button>
-                <button className="border-2 border-black" onClick={() => window.location.reload()}>Novo Corte</button>
+                <button className="border-2 border-black" onClick={saveData}>Refazer</button>
+                <button className="border-2 border-black" onClick={reload}>Novo Corte</button>
             </div>
 
             <div>
@@ -80,7 +140,11 @@ const CutPage = () => {
                 ))}
             </div>
 
-            <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte}/>
+            <div className="flex w-screen h-full flex-col items-center">
+                <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte}/>
+
+            </div>
+
             
         </div>
     )

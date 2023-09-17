@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import preparoListaCorte from "../functions/preparoListaCorte";
 import corte from "../functions/corte";
 import Canvas from "./Canvas";
