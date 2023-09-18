@@ -4,8 +4,7 @@ import canvasDraw from "../functions/canvasDraw";
 const Canvas = (props) => {
     const canvasRef = useRef(null)
 
-    let { listaDesenho } = props
-
+    let { listaDesenho, id } = props
 
     // let { width } = props
     // let { height } = props
@@ -26,20 +25,25 @@ const Canvas = (props) => {
         canvas.height = height
 
 
-        context.fillStyle = 'rgba(0, 0, 255, 0.1)'
-
-
         canvasDraw(context, listaDesenho)
 
     }, [])
 
-    console.log(props)
+    const handleDownload = () => {
 
+        const canvas = canvasRef.current
+        const link = document.createElement('a')
+        link.href = canvas.toDataURL('image/jpeg', 1.0)
+        link.download = `canvas_image${id}.jpeg`
+        link.click()
+
+    }
 
 
     return (  
         <div>
             <canvas ref={canvasRef} style={{border: '1px solid black'}}></canvas>
+            <button onClick={handleDownload}>Download</button>
         </div>
         
         

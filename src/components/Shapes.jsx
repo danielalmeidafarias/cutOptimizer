@@ -31,7 +31,7 @@ const Shapes = (props) => {
     return (
         <div className="flex flex-col gap-4">
             {listaCanvas.map( (listaDesenho) => (
-                <Canvas key={listaCanvas.indexOf(listaDesenho)} listaDesenho={listaDesenho}/>
+                <Canvas key={listaCanvas.indexOf(listaDesenho)} id={listaCanvas.indexOf(listaDesenho)} listaDesenho={listaDesenho}/>
             ))}
         </div>
     );

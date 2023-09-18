@@ -4,6 +4,15 @@ import corte from "../functions/corte";
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 
+// Lista de tarefas
+// [x] Adicionar opção de download de imagens 
+// [] Adicionar opções de tamanho de chapa
+// [] Adicionar modos de corte 
+// [] Adicionar função de remover items da lista de corte
+// [] Melhorar o visual da página
+// [] Opção de mandar por whatsapp
+// [] Backend para salvar imagens e diferentes serviços
+
 const CutPage = () => {
 
     const [listaCanvas, setListaCanvas] = useState([])
