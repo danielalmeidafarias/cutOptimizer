@@ -5,12 +5,12 @@ import Canvas from "./Canvas";
 
 const Shapes = (props) => {    
 
-    let { listaCanvas, listaCorte, espaçosVazios, cutClick } = props
+    let { listaCanvas, listaCorte, espaçosVazios, cutClick, direcaoCorte } = props
 
 
     useEffect(() => {
 
-        preparoListaCorte(listaCorte)
+        preparoListaCorte(listaCorte, direcaoCorte)
 
 
         if(espaçosVazios.length >= 0) {
@@ -43,7 +43,7 @@ const Shapes = (props) => {
     return (
         <div className="flex flex-col gap-4">
             {listaCanvas.map( (listaDesenho) => (
-                <Canvas key={listaCanvas.indexOf(listaDesenho)} id={listaCanvas.indexOf(listaDesenho)} listaDesenho={listaDesenho}/>
+                <Canvas key={listaCanvas.indexOf(listaDesenho)} id={listaCanvas.indexOf(listaDesenho)} listaDesenho={listaDesenho.desenhos} size={listaDesenho.size}/>
             ))}
         </div>
     );

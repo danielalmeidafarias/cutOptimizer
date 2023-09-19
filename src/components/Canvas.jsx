@@ -4,15 +4,15 @@ import canvasDraw from "../functions/canvasDraw";
 const Canvas = (props) => {
     const canvasRef = useRef(null)
 
-    let { listaDesenho, id } = props
+    let { listaDesenho, size, id } = props
 
     // let { width } = props
     // let { height } = props
     // let width = 2750
     // let height = 1850
 
-    let width = 550
-    let height = 370
+    let width = size.w
+    let height = size.h
 
     useEffect(() => {
 
@@ -24,6 +24,7 @@ const Canvas = (props) => {
         canvas.width = width
         canvas.height = height
 
+        console.log(listaDesenho)
 
         canvasDraw(context, listaDesenho)
 
@@ -43,7 +44,7 @@ const Canvas = (props) => {
     return (  
         <div>
             <canvas ref={canvasRef} style={{border: '1px solid black'}}></canvas>
-            <button onClick={handleDownload}>Download</button>
+            <button className="border-2 border-black" onClick={handleDownload}>Download</button>
         </div>
         
         

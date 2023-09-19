@@ -21,14 +21,14 @@ const canvasDraw = (context, listaDesenho) => {
 
         } else {
 
-            let escritaW = `${Math.round(desenho.w * 5)}`
-            let escritaH = `${Math.round(desenho.h * 5) - 4}`
+            // let escritaW = `${Math.round(desenho.w * 5)}`
+            // let escritaH = `${Math.round(desenho.h * 5) - 4}`
 
             context.fillStyle = 'rgba(0, 170, 255)'
 
             context.strokeRect(desenho.x, desenho.y, desenho.w, desenho.h)
             context.fillRect(desenho.x, desenho.y, desenho.w, desenho.h)
-            context.strokeText(`${escritaW} x ${escritaH}`, desenho.x + 10, desenho.y + desenho.h/2)
+            // context.strokeText(`${escritaW} x ${escritaH}`, desenho.x + 10, desenho.y + desenho.h/2)
 
 
         }

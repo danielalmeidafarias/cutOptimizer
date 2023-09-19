@@ -1,4 +1,4 @@
-const preparoListaCorte = (listaCorte) => {
+const preparoListaCorte = (listaCorte , direcaoCorte) => {
     listaCorte.map(peca => {
         let pecaw = peca.w + 4
         let pecah = peca.h + 4
@@ -6,7 +6,7 @@ const preparoListaCorte = (listaCorte) => {
         peca.h = pecah / 5
 
         // Deixado as peças na horizontal
-        if (peca.h > peca.w) {
+        if (peca.h > peca.w && direcaoCorte === false) {
             let pecaH = peca.h
             let pecaW = peca.w
             
