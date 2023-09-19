@@ -10,8 +10,8 @@ import Button from "../components/Button";
 // [x] Adicionar opção de download de imagens 
 // [x] Adicionar opções de tamanho de chapa
 // [x] Adicionar modos de corte 
+// [x] Melhorar o visual da página
 // [] Adicionar função de remover items da lista de corte
-// [] Melhorar o visual da página
 // [] Opção de mandar por whatsapp
 // [] Backend para salvar imagens e diferentes serviços
 // [] Conferir algorítmo
@@ -61,13 +61,11 @@ const CutPage = () => {
             if(peca.cortado === true) {
 
                 peca.cortado = false 
-
-                let pecaw = peca.w * 5
-                let pecah = peca.h * 5
-                peca.w = pecaw - 4
-                peca.h = pecah - 4
                 peca.x = null
                 peca.y = null
+
+                peca.h = peca.h - 4
+                peca.w = peca.w - 4
         
             }
 
@@ -140,11 +138,11 @@ const CutPage = () => {
         <div className="flex flex-col gap-5">
             <NavBar />
 
-            <div className="flex w-screen">
+            <div className="flex w-screen flex-col md:flex-row">
 
-                <div className="w-1/2 flex flex-col gap-3 p-2">
+                <div className="w-full md:w-2/5 flex flex-col gap-3 px-4">
                     
-                        <div className="flex gap-2">
+                        <div className="flex flex-col  gap-2">
                             <p className="text-2xl font-semibold">Peças:</p>
                             <Input value={w} placeholder="Largura" onChange={(e) => {
                                 setW(e.target.value)
@@ -160,7 +158,7 @@ const CutPage = () => {
                         </div>
 
                         
-                        <div className="overflow-y-scroll h-80 px-2 border-2 border-zinc-600 rounded-md shadow-md shadow-zinc-400">
+                        <div className="w-1/2 overflow-y-scroll h-60 px-2 border-2 border-zinc-600 rounded-md shadow-md shadow-zinc-400">
                             <h2 className="font-semibold text-2xl">Lista de Corte</h2>
                             {listagem.map((peca) => (
 
@@ -169,26 +167,24 @@ const CutPage = () => {
                             ))}
                         </div>
 
+                        <div className="flex items-center gap-2">
+                            <input type="checkbox" name="checkbox" id="" onChange={handleDirecaoCorte} />
+                            <label htmlFor="checkbox" className="text-xl font-semibold">Corte unidirecional</label>
+                        </div>
+
                         <div className="flex gap-2">
                             <Button onClick={() => setCutClick(!cutClick)} content="Cortar"/>
                             <Button onClick={saveData} content="Refazer"/>
                             <Button  onClick={reload} content="Novo Corte"/>
-                            <div className="flex items-center">
-                            <input type="checkbox" name="checkbox" id="" onChange={handleDirecaoCorte} />
-                            <label htmlFor="checkbox" className="text-xl font-semibold">Corte unidirecional</label>
                         </div>
-                   
-                        
-
-                    </div>
 
 
 
 
                 </div>
 
-                <div className="w-1/2 flex flex-col gap-3 p-2">
-                    <div className="flex gap-2">
+                <div className="w-full md:w-3/5 flex flex-col gap-3 px-10">
+                    <div className="flex flex-col md:flex-row gap-2">
                         <p className="text-2xl font-semibold">Chapa:</p>
 
                         <Input placeholder="Largura" onChange={(e) => {
