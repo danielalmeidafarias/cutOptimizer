@@ -1,10 +1,11 @@
 const corte = (listaCorte, espaçosVazios, listaCanvas) => {
+    const canvasSize = {w: espaçosVazios[0].w, h: espaçosVazios[0].h}
+    
+    console.log(canvasSize)
 
     let listaDesenhos = []
     listaCorte.map(peca => {
         // Desconto do corte da serra
-
-        
         for(let i = 0; i < espaçosVazios.length - 1; i++) {
             for(let j = i + 1; j < espaçosVazios.length; j++ ) {
                 
@@ -18,6 +19,7 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
                  
             }
         }
+
 
         espaçosVazios.map(espaço => {
   
@@ -129,8 +131,13 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
 
 
     })
-    
+
+    console.log(listaDesenhos)
     listaCanvas.push(listaDesenhos)
+    // {
+    //     desenhos: [];
+    //     size: canvasSize
+    // }
 }
 
 

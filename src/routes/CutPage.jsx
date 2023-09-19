@@ -24,6 +24,9 @@ const CutPage = () => {
     const [h, setH] = useState('')
     const [quantidade, setQuantidade] = useState('')
 
+    const [wChapa, setWChapa] = useState('')
+    const [hChapa, setHChapa] = useState('')
+
     const [cutClick, setCutClick] = useState(false)
 
     const [storageHandler, setStorageHandler] = useState(localStorage.getItem('storageHandler'))
@@ -83,6 +86,7 @@ const CutPage = () => {
 
     }
 
+
     function handleListaCorte() {
 
         let peca = {peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null, quantidade: Number(quantidade)}
@@ -102,6 +106,14 @@ const CutPage = () => {
         setW('')
         setH('')
         setQuantidade('')
+
+    }
+
+    function handleEspaçosVazios() {
+
+        let chapa = [{w: Number(wChapa)/5, h: Number(hChapa)/5, y: 0, x: 0, peca: false}]
+
+        setEspaçosVazios([...espaçosVazios, chapa])
 
     }
 
@@ -138,6 +150,16 @@ const CutPage = () => {
                 <button className="border-2 border-black" onClick={() => setCutClick(!cutClick)}>Cortar</button>
                 <button className="border-2 border-black" onClick={saveData}>Refazer</button>
                 <button className="border-2 border-black" onClick={reload}>Novo Corte</button>
+            </div>
+
+            <div className="flex gap-3">
+                <input className="border-2 border-black" type="text" onChange={(e) => {
+                    setWChapa(e.target.value)
+                }} />
+                <input className="border-2 border-black" type="text" onChange={(e) => {
+                    setHChapa(e.target.value)
+                }} />
+                <button className="border-2 border-black" onClick={handleEspaçosVazios}>Adicionar chapa</button>
             </div>
 
             <div>

@@ -13,6 +13,18 @@ const Shapes = (props) => {
         preparoListaCorte(listaCorte)
 
 
+        if(espaçosVazios.length >= 0) {
+
+            espaçosVazios.map((chapa) => {
+
+                corte(listaCorte, chapa, listaCanvas)
+                listaCorte = listaCorte.filter(peca => peca.cortado === false)
+
+
+            })
+
+        }
+        
         while(listaCorte.length > 0) {
 
             // let chapa = [{w: 2750, h:1850, x:0, y: 0, peca: false}]
@@ -21,7 +33,7 @@ const Shapes = (props) => {
             corte(listaCorte, chapa, listaCanvas)
 
             listaCorte = listaCorte.filter(peca => peca.cortado === false)
-    
+
         }
 
 
