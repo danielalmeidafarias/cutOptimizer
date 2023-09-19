@@ -14,6 +14,8 @@ import Button from "../components/Button";
 // [] Melhorar o visual da página
 // [] Opção de mandar por whatsapp
 // [] Backend para salvar imagens e diferentes serviços
+// [] Conferir algorítmo
+// [] React Native
 
 const CutPage = () => {
 
@@ -105,7 +107,7 @@ const CutPage = () => {
 
     function handleEspaçosVazios() {
 
-        let chapa = [{w: Number(wChapa)/5, h: Number(hChapa)/5, y: 0, x: 0, peca: false}]
+        let chapa = [{w: Number(wChapa), h: Number(hChapa), y: 0, x: 0, peca: false}]
 
         setEspaçosVazios([...espaçosVazios, chapa])
 

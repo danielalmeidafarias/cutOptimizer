@@ -19,7 +19,7 @@ const Canvas = (props) => {
 
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
-        context.font = '12px arial'
+        context.font = '48px serif'
         context.strokeStyle = 'black'
 
         canvas.width = width
