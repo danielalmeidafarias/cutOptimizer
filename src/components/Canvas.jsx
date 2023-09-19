@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import canvasDraw from "../functions/canvasDraw";
+import Button from "./Button";
 
 const Canvas = (props) => {
     const canvasRef = useRef(null)
@@ -42,9 +43,9 @@ const Canvas = (props) => {
 
 
     return (  
-        <div>
-            <canvas ref={canvasRef} style={{border: '1px solid black'}}></canvas>
-            <button className="border-2 border-black" onClick={handleDownload}>Download</button>
+        <div className="flex flex-col gap-2">
+            <canvas className="shadow-md shadow-zinc-600" ref={canvasRef} style={{border: '1px solid black'}}></canvas>
+            <Button onClick={handleDownload} content="Download"/>
         </div>
         
         

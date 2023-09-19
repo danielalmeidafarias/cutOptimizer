@@ -29,12 +29,12 @@ const NavBar = () => {
     }
 
     return (  
-        <div className="w-screen bg-zinc-200 flex flex-col py-3 px-3 md:justify-center">
+        <div className="shadow-md shadow-zinc-400 w-screen bg-zinc-200 flex flex-col py-3 px-3 md:justify-center">
 
             <MobileButton onClick={handleClick} click={click}/>
 
             {/* NavBar telas grandes */}
-            <nav className="hidden md:flex justify-evenly w-full items-center gap-5 px-10">
+            <nav className=" hidden md:flex justify-evenly w-full items-center gap-5 px-10">
                 <NavItem href={'/'} content={'Home'}/>
                 <NavItem href={'/cortes'} content={'Cortes'}/>
                 <NavItem href={'/'} content={'Lista de tarefas'}/>

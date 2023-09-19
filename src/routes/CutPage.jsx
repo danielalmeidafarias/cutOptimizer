@@ -3,6 +3,8 @@ import preparoListaCorte from "../functions/preparoListaCorte";
 import corte from "../functions/corte";
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 // Lista de tarefas
 // [x] Adicionar opção de download de imagens 
@@ -133,54 +135,72 @@ const CutPage = () => {
 
     return (
 
-        <div>
+        <div className="flex flex-col gap-5">
             <NavBar />
 
-            <div className="flex gap-3">
-                <input value={w} placeholder="Largura da peca" className="border-2 border-black" type="text" onChange={(e) => {
-                    setW(e.target.value)
-                }} 
-                />    
+            <div className="flex w-screen">
 
-                <input value={h} placeholder="Altura da peca" className="border-2 border-black" type="text" onChange={(e) => {
-                    setH(e.target.value)
-                }}  
-                />    
+                <div className="w-1/2 flex flex-col gap-3 p-2">
+                    
+                        <div className="flex gap-2">
+                            <p className="text-2xl font-semibold">Peças:</p>
+                            <Input value={w} placeholder="Largura" onChange={(e) => {
+                                setW(e.target.value)
+                            }}/>   
+                            <Input value={h} placeholder="Altura" onChange={(e) => {
+                                setH(e.target.value)
+                            }}/> 
+                            <Input value={quantidade} placeholder="Quantidade" onChange={(e) => {
+                                setQuantidade(e.target.value)
+                            }}/>
+                            <Button onClick={handleListaCorte} content="Adicionar"/>
 
-                <input value={quantidade} placeholder="Quantidade" className="border-2 border-black" type="text" onChange={(e) => {
-                    setQuantidade(e.target.value)
-                }}  
-                />    
-                
-                <button className="border-2 border-black" onClick={handleListaCorte}>Adicionar</button>
-                <button className="border-2 border-black" onClick={() => setCutClick(!cutClick)}>Cortar</button>
-                <button className="border-2 border-black" onClick={saveData}>Refazer</button>
-                <button className="border-2 border-black" onClick={reload}>Novo Corte</button>
-            </div>
+                        </div>
 
-            <div className="flex gap-3">
-                <input placeholder="Largura da chapa" className="border-2 border-black" type="text" onChange={(e) => {
-                    setWChapa(e.target.value)
-                }} />
-                <input placeholder="Altura da chapa" className="border-2 border-black" type="text" onChange={(e) => {
-                    setHChapa(e.target.value)
-                }} />
-                <button className="border-2 border-black" onClick={handleEspaçosVazios}>Adicionar chapa</button>
-                <input type="checkbox" name="checkbox" id="" onChange={handleDirecaoCorte}/>
-                <label htmlFor="checkbox">Corte unidirecional</label>
-            </div>
+                        
+                        <div className="overflow-y-scroll h-80 px-2 border-2 border-zinc-600 rounded-md shadow-md shadow-zinc-400">
+                            <h2 className="font-semibold text-2xl">Lista de Corte</h2>
+                            {listagem.map((peca) => (
 
-            <div>
-                <h2 className="font-semibold text-2xl">Lista de Corte</h2>
-                {listagem.map((peca) => (
+                            peca.quantidade > 1 ? <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h} x ${peca.quantidade}`}</p> : <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h}`}</p> 
 
-                peca.quantidade > 1 ? <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h} x ${peca.quantidade}`}</p> : <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h}`}</p> 
+                            ))}
+                        </div>
 
-                ))}
-            </div>
+                        <div className="flex gap-2">
+                            <Button onClick={() => setCutClick(!cutClick)} content="Cortar"/>
+                            <Button onClick={saveData} content="Refazer"/>
+                            <Button  onClick={reload} content="Novo Corte"/>
+                            <div className="flex items-center">
+                            <input type="checkbox" name="checkbox" id="" onChange={handleDirecaoCorte} />
+                            <label htmlFor="checkbox" className="text-xl font-semibold">Corte unidirecional</label>
+                        </div>
+                   
+                        
 
-            <div className="flex w-screen h-full flex-col items-center">
-                <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte} direcaoCorte={direcaoCorte}/>
+                    </div>
+
+
+
+
+                </div>
+
+                <div className="w-1/2 flex flex-col gap-3 p-2">
+                    <div className="flex gap-2">
+                        <p className="text-2xl font-semibold">Chapa:</p>
+
+                        <Input placeholder="Largura" onChange={(e) => {
+                            setWChapa(e.target.value)
+                        }}/>
+                        <Input placeholder="Altura" onChange={(e) => {
+                            setHChapa(e.target.value)
+                        }}/>
+                        <Button onClick={handleEspaçosVazios} content="Adicionar"/>
+
+                    </div>
+                    <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte} direcaoCorte={direcaoCorte}/>
+                </div>
+
 
             </div>
 
