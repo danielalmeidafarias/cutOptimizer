@@ -1,4 +1,4 @@
-import { useState, useEffect, useId } from "react";
+import { useEffect } from "react";
 import preparoListaCorte from "../functions/preparoListaCorte";
 import corte from "../functions/corte";
 import Canvas from "./Canvas";
@@ -28,9 +28,8 @@ const Shapes = (props) => {
         while(listaCorte.length > 0) {
 
             let chapa = [{w: 2750, h:1850, x:0, y: 0, peca: false}]
-            // let chapa = [{w: 550, h:370, x:0, y: 0, peca: false}]
             espaçosVazios.push(chapa)
-            corte(listaCorte, chapa, listaCanvas)
+            corte(listaCorte, chapa, listaCanvas, direcaoCorte)
 
             listaCorte = listaCorte.filter(peca => peca.cortado === false)
 

@@ -1,6 +1,6 @@
 const Input = (props) => {
 
-    const { onChange, placeholder, value, type } = props
+    const { onChange, placeholder, value} = props
 
     return (  
         <input 

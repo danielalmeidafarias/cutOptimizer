@@ -1,6 +1,4 @@
 import Shapes from "../components/Shapes";
-import preparoListaCorte from "../functions/preparoListaCorte";
-import corte from "../functions/corte";
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Input from "../components/Input";
@@ -12,10 +10,12 @@ import Button from "../components/Button";
 // [x] Adicionar modos de corte 
 // [x] Melhorar o visual da página
 // [] Adicionar função de remover items da lista de corte
-// [] Opção de mandar por whatsapp
-// [] Backend para salvar imagens e diferentes serviços
 // [] Conferir algorítmo
 // [] React Native
+
+
+// [] Opção de mandar por whatsapp
+// [] Backend para salvar imagens e diferentes serviços
 
 const CutPage = () => {
 

@@ -1,4 +1,4 @@
-const corte = (listaCorte, espaçosVazios, listaCanvas) => {
+const corte = (listaCorte, espaçosVazios, listaCanvas, direcaoCorte) => {
     const canvasSize = {w: espaçosVazios[0].w, h: espaçosVazios[0].h}
     
     let listaDesenhos = {
@@ -22,15 +22,37 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
             }
         }
 
+        let espaçoSemelhante = espaçosVazios.find((espaço) => espaço.h === peca.h)
+
+        if(espaçoSemelhante) {
+
+            const index = espaçosVazios.indexOf(espaçoSemelhante)
+            const handler = espaçosVazios[index]
+
+            espaçosVazios[index] = espaçosVazios[0]
+            espaçosVazios[0] = handler
+
+        }
+
+        console.log(espaçosVazios)
+
 
         espaçosVazios.map(espaço => {
   
+            if(peca.w > espaço.w && peca.h <= espaço.w && peca.w <= espaço.h && direcaoCorte === false) {
 
-            // 1. a1 < a2
+                let pecaW = peca.w
+                let pecaH = peca.h
+
+                peca.w = pecaH
+                peca.h = pecaW
+
+            }
+
             if(peca.w * peca.h > espaço.w * espaço.h) {
                 return
             } 
-            // 3. w1 == w2 && h1 == h2
+
             else if(peca.w === espaço.w && peca.h === espaço.h && peca.cortado === false) {
                 peca.x = espaço.x
                 peca.y = espaço.y
@@ -42,7 +64,7 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
 
                 peca.cortado = true
             } 
-            // 4. w1 == w2 && h1 > h2
+
             else if(peca.w === espaço.w && peca.h < espaço.h && peca.cortado === false) {
                 peca.x = espaço.x
                 peca.y = espaço.y
@@ -62,7 +84,7 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
                 espaçosVazios.push(sobra)
                 listaDesenhos.desenhos.push(peca, sobra)
             } 
-            // 5. w1 > w2 && h1 == h2
+
             else if(peca.h === espaço.h && peca.w < espaço.w && peca.cortado === false){
                 peca.x = espaço.x
                 peca.y = espaço.y
@@ -83,7 +105,7 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
                 listaDesenhos.desenhos.push(peca, sobra)
 
             }
-            // 6. h1 > w2 && h1 > h2
+
             else if(peca.w < espaço.w && peca.h < espaço.h && peca.cortado === false) {
                 peca.x = espaço.x
                 peca.y = espaço.y
@@ -111,30 +133,12 @@ const corte = (listaCorte, espaçosVazios, listaCanvas) => {
 
             }
             
-            
-
-
-            // 2. w1 < w2
-            // if(peca.w > espaço.w || peca.h > espaço.h) {
-            //     let pecaW = peca.w
-            //     let pecaH = peca.h
-
-            //     peca.w = pecaH
-            //     peca.h = pecaW
-
-            //     if(peca.w > espaço.w) {
-            //         peca.w = pecaW
-            //         peca.h = pecaH
-            //         return
-            //     }
-            // }  
         })
 
 
 
     })
 
-    // console.log(listaDesenhos)
     listaCanvas.push(listaDesenhos)
 
 }
