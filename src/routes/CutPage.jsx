@@ -12,7 +12,7 @@ import Button from "../components/Button";
 // [+-] Conferir algorítmo
 
 // [] Adicionar função de remover items da lista de corte
-// [] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
+// [x] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
 // [] React Native
 
 

@@ -7,6 +7,9 @@ const corte = (listaCorte, espaçosVazios, listaCanvas, direcaoCorte) => {
     }
 
     listaCorte.map(peca => {
+        if(peca.w > 2746 || peca.h > 2746 || peca.w > 1846 && peca.h > 1846) {
+            throw new Error('As medidas não são validas')
+        }
 
         // Ordenando os espaços vazios
         for(let i = 0; i < espaçosVazios.length - 1; i++) {
