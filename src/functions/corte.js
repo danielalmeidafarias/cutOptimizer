@@ -7,7 +7,7 @@ const corte = (listaCorte, espaçosVazios, listaCanvas, direcaoCorte) => {
     }
 
     listaCorte.map(peca => {
-        if(peca.w > 2746 || peca.h > 2746 || peca.w > 1846 && peca.h > 1846) {
+        if(peca.w > 2746 || peca.h > 2746 || peca.w > 1846 && peca.h > 1846 || peca.w <= 4 || peca.h <= 4) {
             throw new Error('As medidas não são validas')
         }
 
