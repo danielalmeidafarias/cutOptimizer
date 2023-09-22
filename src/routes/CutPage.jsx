@@ -9,8 +9,10 @@ import Button from "../components/Button";
 // [x] Adicionar opções de tamanho de chapa
 // [x] Adicionar modos de corte 
 // [x] Melhorar o visual da página
+// [+-] Conferir algorítmo
+
 // [] Adicionar função de remover items da lista de corte
-// [] Conferir algorítmo
+// [] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
 // [] React Native
 
 
@@ -38,7 +40,6 @@ const CutPage = () => {
     const [listagemData, setListagemData] = useState(JSON.parse(localStorage.getItem('listagemData')))
 
     const [direcaoCorte, setDirecaoCorte] = useState(false)
-
 
 
     function handleDirecaoCorte() {

@@ -20,12 +20,12 @@ const canvasDraw = (context, listaDesenho) => {
             }
 
             context.fillStyle = 'rgba(0, 0, 0)'
-            context.fillText(`${escritaW} x ${escritaH}`, desenho.x + 10, desenho.y + desenho.h - 10)
+            context.fillText(`${escritaW} x ${escritaH}`, desenho.x + 10, desenho.y + desenho.h)
 
         } else {
 
-            let escritaW = `${Math.round(desenho.w)}`
-            let escritaH = `${Math.round(desenho.h)}`
+            let escritaW = `${String(desenho.w)}`
+            let escritaH = `${String(desenho.h)}`
 
             context.lineWidth = 4
 
@@ -42,7 +42,7 @@ const canvasDraw = (context, listaDesenho) => {
             }
 
             context.fillStyle = 'rgba(0, 0, 0)'
-            context.fillText(`${escritaW} x ${escritaH - 4}`, desenho.x, desenho.y + desenho - 10)
+            context.fillText(`${escritaW} x ${escritaH - 4}`, desenho.x, desenho.y + desenho.h)
 
 
         }
