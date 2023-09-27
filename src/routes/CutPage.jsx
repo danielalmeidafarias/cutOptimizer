@@ -154,7 +154,7 @@ const CutPage = () => {
                             <Input value={quantidade} placeholder="Quantidade" onChange={(e) => {
                                 setQuantidade(e.target.value)
                             }}/>
-                            <Button onClick={handleListaCorte} content="Adicionar"/>
+                            <Button onClick={handleListaCorte} content="ADICIONAR"/>
 
                         </div>
 
@@ -174,9 +174,9 @@ const CutPage = () => {
                         </div>
 
                         <div className="flex gap-2">
-                            <Button onClick={() => setCutClick(!cutClick)} content="Cortar"/>
-                            <Button onClick={saveData} content="Refazer"/>
-                            <Button  onClick={reload} content="Novo Corte"/>
+                            <Button onClick={() => setCutClick(!cutClick)} content="CORTAR"/>
+                            <Button onClick={saveData} content="REFAZER"/>
+                            <Button  onClick={reload} content="LIMPAR"/>
                         </div>
 
 
