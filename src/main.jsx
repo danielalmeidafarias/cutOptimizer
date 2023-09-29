@@ -6,8 +6,13 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import CutPage from './routes/CutPage.jsx'
+import LoginPage from './routes/LoginPage.jsx'
 
 const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <LoginPage />
+  },
   {
     path: '/',
     element: <App />
@@ -15,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: '/cortes',
     element: <CutPage />
-  }
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

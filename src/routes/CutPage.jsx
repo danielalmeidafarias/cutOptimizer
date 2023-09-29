@@ -13,7 +13,7 @@ import Button from "../components/Button";
 
 // [] Adicionar função de remover items da lista de corte
 // [x] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
-// [] React Native
+// [x] React Native
 
 
 // [] Opção de mandar por whatsapp
@@ -138,23 +138,23 @@ const CutPage = () => {
 
         <div className="flex flex-col gap-5">
             <NavBar />
-
+            
             <div className="flex w-screen flex-col md:flex-row">
 
                 <div className="w-full md:w-2/5 flex flex-col gap-3 px-4">
                     
                         <div className="flex flex-col  gap-2">
                             <p className="text-2xl font-semibold">Peças:</p>
-                            <Input value={w} placeholder="Largura" onChange={(e) => {
+                            <Input type='number' className={'w-32'} value={w} placeholder="Largura" onChange={(e) => {
                                 setW(e.target.value)
                             }}/>   
-                            <Input value={h} placeholder="Altura" onChange={(e) => {
+                            <Input type='number' className={'w-32'} value={h} placeholder="Altura" onChange={(e) => {
                                 setH(e.target.value)
                             }}/> 
-                            <Input value={quantidade} placeholder="Quantidade" onChange={(e) => {
+                            <Input type='number' className={'w-32'} value={quantidade} placeholder="Quantidade" onChange={(e) => {
                                 setQuantidade(e.target.value)
                             }}/>
-                            <Button onClick={handleListaCorte} content="ADICIONAR"/>
+                            <Button onClick={handleListaCorte} content="ADICIONAR" className="w-28"/>
 
                         </div>
 
@@ -174,9 +174,9 @@ const CutPage = () => {
                         </div>
 
                         <div className="flex gap-2">
-                            <Button onClick={() => setCutClick(!cutClick)} content="CORTAR"/>
-                            <Button onClick={saveData} content="REFAZER"/>
-                            <Button  onClick={reload} content="LIMPAR"/>
+                            <Button onClick={() => setCutClick(!cutClick)} content="CORTAR" className="w-28"/>
+                            <Button onClick={saveData} content="REFAZER" className="w-28"/>
+                            <Button  onClick={reload} content="LIMPAR" className="w-28"/>
                         </div>
 
 
@@ -188,13 +188,13 @@ const CutPage = () => {
                     <div className="flex flex-col md:flex-row gap-2">
                         <p className="text-2xl font-semibold">Chapa:</p>
 
-                        <Input placeholder="Largura" onChange={(e) => {
+                        <Input type='number' className={'w-32'} placeholder="Largura" onChange={(e) => {
                             setWChapa(e.target.value)
                         }}/>
-                        <Input placeholder="Altura" onChange={(e) => {
+                        <Input type='number'className={'w-32'} placeholder="Altura" onChange={(e) => {
                             setHChapa(e.target.value)
                         }}/>
-                        <Button onClick={handleEspaçosVazios} content="Adicionar"/>
+                        <Button onClick={handleEspaçosVazios} content="ADICIONAR" className="w-28"/>
 
                     </div>
                     <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte} direcaoCorte={direcaoCorte}/>

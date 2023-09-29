@@ -1,11 +1,12 @@
 const Button = (props) => {
 
-    const { onClick, content } = props
+    const { onClick, content, className, type } = props
 
     return (  
         <button 
+        type={props.type}
         onClick={onClick}
-        className=" shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg w-28"
+        className={`${props.className} shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg`}
         >
             {content}
         </button>
