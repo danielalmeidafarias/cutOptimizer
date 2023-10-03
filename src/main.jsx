@@ -7,24 +7,28 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import CutPage from './routes/CutPage.jsx'
 import LoginPage from './routes/LoginPage.jsx'
+import CutLists from './routes/CutLists.jsx'
+import { LoginProvider } from './context/LoginContext.jsx'
+
 
 const router = createBrowserRouter([
   {
     path: '/login',
-    element: <LoginPage />
+    element: <LoginPage/>
   },
   {
     path: '/',
-    element: <App />
-  }, 
-  {
-    path: '/cortes',
     element: <CutPage />
   },
+  {
+    path: '/listas',
+    element: <CutLists />
+  }
 ])
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
+  <LoginProvider>
     <RouterProvider router={router}/>
+  </LoginProvider>
   // </React.StrictMode>,
 )

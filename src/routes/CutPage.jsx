@@ -1,8 +1,10 @@
 import Shapes from "../components/Shapes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
 import NavBar from "../components/NavBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import axios from "axios";
 
 // Lista de tarefas
 // [x] Adicionar opção de download de imagens 
@@ -41,6 +43,20 @@ const CutPage = () => {
 
     const [direcaoCorte, setDirecaoCorte] = useState(false)
 
+    const { sessionId, setSessionId } = useContext(LoginContext)
+
+    async function saveData() {
+
+        await axios.post(`http://localhost:3000/listas/${sessionId}`, {
+            lista: listagem,
+            date: new Date(Date.now())
+        })
+        . then()
+        .catch((err) => {
+            console.error(err)
+        })
+
+    }
 
     function handleDirecaoCorte() {
 
@@ -55,7 +71,7 @@ const CutPage = () => {
 
     }
 
-    function saveData() {
+    function saveLocal() {
 
         localStorage.setItem('listaCorteData', JSON.stringify(listaCorte.map((peca) => {
 
@@ -116,7 +132,7 @@ const CutPage = () => {
 
         setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
 
-        if (listaCorteData) {
+        if (listagemData) {
 
             setListaCorte([...listaCorteData])
             setListagem([...listagemData])
@@ -132,7 +148,6 @@ const CutPage = () => {
         setListaCorte([...listaCorte])
 
     }, [cutClick])
-
 
     return (
 
@@ -175,8 +190,9 @@ const CutPage = () => {
 
                         <div className="flex gap-2">
                             <Button onClick={() => setCutClick(!cutClick)} content="CORTAR" className="w-28"/>
-                            <Button onClick={saveData} content="REFAZER" className="w-28"/>
+                            <Button onClick={saveLocal} content="REFAZER" className="w-28"/>
                             <Button  onClick={reload} content="LIMPAR" className="w-28"/>
+                            <Button content="SALVAR" className="w-28" onClick={() => saveData()}/>
                         </div>
 
 

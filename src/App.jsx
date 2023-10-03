@@ -1,18 +1,25 @@
 import Button from "./components/Button"
 import Input from "./components/Input"
 import NavBar from "./components/NavBar"
+import LoginPage from "./routes/LoginPage"
+import { useState } from "react"
 
 
 function App() {
 
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'))
+
+
   return (
     <>
-      <NavBar />
-      <h1 className="text-xl bg-red-500">Olá</h1>
-      <div>
-        <Button />
-        <Input />
-      </div>
+      {userId ? (
+        <div>
+          <NavBar />
+
+        </div>
+      ) : (
+        <LoginPage />
+      )}
     </>
   )
 }

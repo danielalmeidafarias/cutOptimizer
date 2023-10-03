@@ -1,11 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { LoginContext } from "../context/LoginContext"
+import { Outlet, Link } from "react-router-dom"
 
 const NavItem = (props) => {
     return (
-        <a 
-        href={props.href}
-        className="text-lg font-normal text-zinc-700 hover:text-black text-center"
-        >{props.content}</a>
+        <Link 
+        to={props.to}
+        className="text-xl font-semibold text-zinc-900 hover:text-black text-center"
+        >{props.content}</Link>
     )
 }
 
@@ -24,8 +26,14 @@ const MobileButton = (props) => {
 const NavBar = () => {
     
     const [click, setClick] = useState(true)
-    function handleClick() {
+    const { sessionId, setSessionId } = useContext(LoginContext)
+
+    const handleClick = () => {
         setClick(!click)
+    }
+
+    const handleLoggout = () => {
+        setSessionId('')
     }
 
     return (  
@@ -34,24 +42,22 @@ const NavBar = () => {
             <MobileButton onClick={handleClick} click={click}/>
 
             {/* NavBar telas grandes */}
-            <nav className=" hidden md:flex justify-evenly w-full items-center gap-5 px-10">
-                <NavItem href={'/'} content={'Home'}/>
-                <NavItem href={'/cortes'} content={'Cortes'}/>
-                <NavItem href={'/'} content={'Lista de tarefas'}/>
-                <NavItem href={'/'} content={'Materiais'}/>
-                <NavItem href={'/'} content={'Orçamentos'}/>
-                <NavItem href={'/'} content={'Balanço financeiro'}/>
+            <nav className=" hidden md:flex w-full justify-between items-center gap-5 px-10">
+                <h2 className="text-2xl font-bold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                <div className="flex items-center gap-24">
+                    <NavItem to={'/'} content={'Cortes'}/>
+                    <NavItem to={'/listas'} content={'Lista de tarefas'}/>
+                    <Link className="w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
+                </div>
             </nav> 
             
             {/* NavBar mobile */}
             <nav className={click ? `hidden w-screen flex-col items-center gap-5 px-12 justify-evenly transition-all` : `flex first-line:w-screen bg-zinc-200 md:hidden flex-col items-center gap-5 px-12 justify-evenly transition-all`}>
-
-                <NavItem href={'/'} content={'Home'}/>
-                <NavItem href={'/cortes'} content={'Cortes'}/>
-                <NavItem href={'/'} content={'Lista de tarefas'}/>
-                <NavItem href={'/'} content={'Materiais'}/>
-                <NavItem href={'/'} content={'Orçamentos'}/>
-                <NavItem href={'/'} content={'Balanço financeiro'}/>
+                <h2 className="text-2xl font-bold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                
+                <NavItem to={'/'} content={'Cortes'}/>
+                <NavItem to={'/listas'} content={'Lista de tarefas'}/>
+                <Link className="w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
 
             </nav> 
         </div>
