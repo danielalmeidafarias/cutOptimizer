@@ -1,6 +1,7 @@
 import Shapes from "../components/Shapes";
 import { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
+import { SavedListContext } from "../context/SavedListContext";
 import NavBar from "../components/NavBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -13,20 +14,18 @@ import axios from "axios";
 // [x] Melhorar o visual da página
 // [+-] Conferir algorítmo
 
-// [] Adicionar função de remover items da lista de corte
+// [x] Adicionar função de remover items da lista de corte
 // [x] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
 // [x] React Native
 
-
-// [] Opção de mandar por whatsapp
 // [] Backend para salvar imagens e diferentes serviços
 
 const CutPage = () => {
 
     const [listaCanvas, setListaCanvas] = useState([])
     const [espaçosVazios, setEspaçosVazios] = useState([])
-    const [listaCorte, setListaCorte] = useState([])
     const [listagem, setListagem] = useState([])
+    const [listaCorte, setListaCorte] = useState([])
 
     const [w, setW] = useState('')
     const [h, setH] = useState('')
@@ -38,12 +37,33 @@ const CutPage = () => {
     const [cutClick, setCutClick] = useState(false)
 
     const [storageHandler, setStorageHandler] = useState(localStorage.getItem('storageHandler'))
-    const [listaCorteData, setListaCorteData] = useState(JSON.parse(localStorage.getItem('listaCorteData')))
+
     const [listagemData, setListagemData] = useState(JSON.parse(localStorage.getItem('listagemData')))
 
     const [direcaoCorte, setDirecaoCorte] = useState(false)
 
     const { sessionId, setSessionId } = useContext(LoginContext)
+
+    const { savedList, setSavedList } = useContext(SavedListContext)
+
+    async function getSavedList() {
+
+        await axios.get(`http://localhost:3000/listas/${sessionId}/${savedList}`)
+        .then((response) => {
+            console.log(response.data.lista)
+            setListagem([...response.data.lista])
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+
+    }
+
+    useEffect(() => {
+
+        if(savedList) getSavedList()
+
+    }, [])
 
     async function saveData() {
 
@@ -61,6 +81,15 @@ const CutPage = () => {
     function handleDirecaoCorte() {
 
         setDirecaoCorte(!direcaoCorte)
+
+    }
+
+    function handleDeleteLista(index) {
+
+        const modifiedListagem = [...listagem]
+        modifiedListagem.splice(index, 1)
+
+        setListagem([...modifiedListagem])
 
     }
 
@@ -97,28 +126,92 @@ const CutPage = () => {
 
     }
 
-
+    //??
     function handleListaCorte() {
 
-        let peca = {peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null, quantidade: Number(quantidade)}
-        setListagem([...listagem, peca])
-
-        let corte = []
-
-        for(let i = 0; i < peca.quantidade; i++) {
-
-            corte.push({peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null})
-
-        }
-
-        setListaCorte([...listaCorte, ...corte])
-
-
-        setW('')
-        setH('')
-        setQuantidade('')
+        const novaPeca = {
+            peca: true,
+            w: Number(w),
+            h: Number(h),
+            cortado: false,
+            x: null,
+            y: null,
+            quantidade: Number(quantidade)
+          };
+        
+          // Adicione a nova peça à listagem
+          setListagem([...listagem, novaPeca]);
+        
+          // Adicione a nova peça à listaCorte, levando em conta a quantidade
+          const corte = Array.from({ length: novaPeca.quantidade }, () => ({
+            peca: true,
+            w: Number(w),
+            h: Number(h),
+            cortado: false,
+            x: null,
+            y: null
+          }));
+        
+          setListaCorte([...listaCorte, ...corte]);
+        
+          setW('');
+          setH('');
+          setQuantidade('');
 
     }
+
+    useEffect(() => {
+        setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')));
+      
+        // Verifique se há dados no localStorage e atualize a listagem, se houver
+        const listagemData = JSON.parse(localStorage.getItem('listagemData'));
+        if (listagemData) {
+          setListagem([...listagemData]);
+        }
+      
+        localStorage.setItem('storageHandler', '0');
+    }, [storageHandler]);
+
+    useEffect(() => {
+        const newListaCorte = listagem.reduce((acc, peca) => {
+          const corte = Array.from({ length: peca.quantidade }, () => ({
+            peca: true,
+            w: peca.w,
+            h: peca.h,
+            cortado: false,
+            x: null,
+            y: null
+          }));
+          return [...acc, ...corte];
+        }, []);
+      
+        setListaCorte(newListaCorte);
+    }, [listagem]);
+
+
+    // function handleListaCorte() {
+
+    //     let peca = {peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null, quantidade: Number(quantidade)}
+    //     setListagem([...listagem, peca])
+
+    //     let corte = []
+
+    //     for(let i = 0; i < peca.quantidade; i++) {
+
+    //         corte.push({peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null})
+
+    //     }
+
+    //     setListaCorte([...listaCorte, ...corte])
+
+
+    //     setW('')
+    //     setH('')
+    //     setQuantidade('')
+
+    // }
+
+
 
     function handleEspaçosVazios() {
 
@@ -128,20 +221,20 @@ const CutPage = () => {
 
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
+    //     setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
 
-        if (listagemData) {
+    //     if (listagemData) {
 
-            setListaCorte([...listaCorteData])
-            setListagem([...listagemData])
+    //         setListaCorte([...listaCorteData])
+    //         setListagem([...listagemData])
 
-        }
+    //     }
 
-        localStorage.setItem('storageHandler', '0')
+    //     localStorage.setItem('storageHandler', '0')
 
-    }, [storageHandler])
+    // }, [storageHandler])
 
     useEffect(() => {
 
@@ -178,8 +271,18 @@ const CutPage = () => {
                             <h2 className="font-semibold text-2xl">Lista de Corte</h2>
                             {listagem.map((peca) => (
 
-                            peca.quantidade > 1 ? <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h} x ${peca.quantidade}`}</p> : <p className="font-thin text-xl" key={listagem.indexOf(peca)}>{`${peca.w} x ${peca.h}`}</p> 
+                                <div key={listagem.indexOf(peca)} className="flex items-center gap-1">
+                                    <p 
+                                    className="font-thin text-xl" 
+                                    
+                                    id={listagem.indexOf(peca)}
+                                    >{`${peca.w} x ${peca.h} ${peca.quantidade > 1 ? `x ${peca.quantidade}` : ''}`}</p> 
+                                    <div
+                                    className="cursor-pointer bg-zinc-700 w-6 h-6 rounded-sm flex items-center justify-center text-white hover:bg-zinc-800"
+                                    onClick={() => {handleDeleteLista(listagem.indexOf(peca))}}
+                                    >x</div>
 
+                                </div>
                             ))}
                         </div>
 

@@ -9,6 +9,7 @@ import CutPage from './routes/CutPage.jsx'
 import LoginPage from './routes/LoginPage.jsx'
 import CutLists from './routes/CutLists.jsx'
 import { LoginProvider } from './context/LoginContext.jsx'
+import { ListContextProvider } from './context/SavedListContext.jsx'
 
 
 const router = createBrowserRouter([
@@ -28,7 +29,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <LoginProvider>
-    <RouterProvider router={router}/>
+    <ListContextProvider>
+      <RouterProvider router={router}/>
+    </ListContextProvider>
   </LoginProvider>
   // </React.StrictMode>,
 )

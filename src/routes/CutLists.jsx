@@ -1,8 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
+import { SavedListContext } from "../context/SavedListContext";
 import Button from "../components/Button";
 import axios from "axios";
 import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
 
 
 const CutLists = () => {
@@ -11,12 +13,13 @@ const CutLists = () => {
 
     const { sessionId, setSessionId } = useContext(LoginContext)
 
+    const { savedList, setSavedList } = useContext(SavedListContext)
+
 
     async function getListaCorte() {
         await axios.get(`http://localhost:3000/listas/${sessionId}`)
             .then((response) => {
                 setListagem([...response.data])
-                console.log(response.data)
             })
             .catch((err) => {
                 console.error(err)
@@ -26,7 +29,6 @@ const CutLists = () => {
     async function handleDeleteCorte(id) {
         await axios.post(`http://localhost:3000/listas/delete/${sessionId}`, {
             id: id,
-            // userId: sessionId
         })
         .then()
         .catch((err) => {
@@ -61,11 +63,11 @@ const CutLists = () => {
                                 </div>
                                 <div className="flex gap-1">
                                     <Button className={'w-24'} content={'REMOVER'} onClick={() => {
-                                            handleDeleteCorte(listas.id)
+                                        handleDeleteCorte(listas.id)
                                     }}/>
-                                    <Button className={'w-24'} content={'CORTAR'} onClick={() => {
-                                        console.log('teste')
-                                    }}/>
+                                    <Link to='/' className={'w-24'} content={'CORTAR'} onClick={() => {
+                                        setSavedList(listas.id)
+                                    }}>CORTAR</Link>
 
                                 </div>
 
