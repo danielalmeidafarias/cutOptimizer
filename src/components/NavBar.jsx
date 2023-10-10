@@ -6,7 +6,7 @@ const NavItem = (props) => {
     return (
         <Link 
         to={props.to}
-        className="text-xl font-semibold text-zinc-900 hover:text-black text-center"
+        className="text-xl font-bold text-zinc-800  hover:text-black text-center"
         >{props.content}</Link>
     )
 }
@@ -43,21 +43,21 @@ const NavBar = () => {
 
             {/* NavBar telas grandes */}
             <nav className=" hidden md:flex w-full justify-between items-center gap-5 px-10">
-                <h2 className="text-2xl font-bold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                <h2 className="text-2xl font-extrabold text-zinc-700">{'<App Marcenaria/>'}</h2>
                 <div className="flex items-center gap-24">
                     <NavItem to={'/'} content={'Cortes'}/>
                     <NavItem to={'/listas'} content={'Lista de tarefas'}/>
-                    <Link className="w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
+                    <Link className="font-bold w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
                 </div>
             </nav> 
             
             {/* NavBar mobile */}
             <nav className={click ? `hidden w-screen flex-col items-center gap-5 px-12 justify-evenly transition-all` : `flex first-line:w-screen bg-zinc-200 md:hidden flex-col items-center gap-5 px-12 justify-evenly transition-all`}>
-                <h2 className="text-2xl font-bold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                <h2 className="text-2xl font-extrabold text-zinc-700">{'<App Marcenaria/>'}</h2>
                 
                 <NavItem to={'/'} content={'Cortes'}/>
                 <NavItem to={'/listas'} content={'Lista de tarefas'}/>
-                <Link className="w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
+                <Link className="font-bold w-24 shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg" onClick={sessionId ? handleLoggout : null} to={'/login'}>{sessionId ? 'Loggout' : 'Login'}</Link>
 
             </nav> 
         </div>

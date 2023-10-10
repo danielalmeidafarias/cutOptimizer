@@ -7,18 +7,9 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import axios from "axios";
 
-// Lista de tarefas
-// [x] Adicionar opção de download de imagens 
-// [x] Adicionar opções de tamanho de chapa
-// [x] Adicionar modos de corte 
-// [x] Melhorar o visual da página
-// [+-] Conferir algorítmo
-
-// [x] Adicionar função de remover items da lista de corte
-// [x] Adicionar tratamento de erro em caso da peca solicitada ser maior que o tamanho de uma chapa
-// [x] React Native
-
-// [] Backend para salvar imagens e diferentes serviços
+import { AiFillCloseCircle } from 'react-icons/ai'
+import { BsFillPlusSquareFill } from 'react-icons/bs'
+import { Checkbox } from "@mui/material";
 
 const CutPage = () => {
 
@@ -38,13 +29,11 @@ const CutPage = () => {
 
     const [storageHandler, setStorageHandler] = useState(localStorage.getItem('storageHandler'))
 
-    const [listagemData, setListagemData] = useState(JSON.parse(localStorage.getItem('listagemData')))
-
     const [direcaoCorte, setDirecaoCorte] = useState(false)
 
-    const { sessionId, setSessionId } = useContext(LoginContext)
+    const { sessionId } = useContext(LoginContext)
 
-    const { savedList, setSavedList } = useContext(SavedListContext)
+    const { savedList } = useContext(SavedListContext)
 
     async function getSavedList() {
 
@@ -59,12 +48,6 @@ const CutPage = () => {
 
     }
 
-    useEffect(() => {
-
-        if(savedList) getSavedList()
-
-    }, [])
-
     async function saveData() {
 
         await axios.post(`http://localhost:3000/listas/${sessionId}`, {
@@ -78,12 +61,6 @@ const CutPage = () => {
 
     }
 
-    function handleDirecaoCorte() {
-
-        setDirecaoCorte(!direcaoCorte)
-
-    }
-
     function handleDeleteLista(index) {
 
         const modifiedListagem = [...listagem]
@@ -92,6 +69,13 @@ const CutPage = () => {
         setListagem([...modifiedListagem])
 
     }
+
+    function handleDirecaoCorte() {
+
+        setDirecaoCorte(!direcaoCorte)
+
+    }
+
 
     function reload() {
 
@@ -102,22 +86,6 @@ const CutPage = () => {
 
     function saveLocal() {
 
-        localStorage.setItem('listaCorteData', JSON.stringify(listaCorte.map((peca) => {
-
-            if(peca.cortado === true) {
-
-                peca.cortado = false 
-                peca.x = null
-                peca.y = null
-
-                peca.h = peca.h - 4
-                peca.w = peca.w - 4
-        
-            }
-
-            return peca
-
-        })))
         localStorage.setItem('listagemData', JSON.stringify(listagem))
 
         localStorage.setItem('storageHandler', '1')
@@ -126,7 +94,6 @@ const CutPage = () => {
 
     }
 
-    //??
     function handleListaCorte() {
 
         const novaPeca = {
@@ -137,42 +104,43 @@ const CutPage = () => {
             x: null,
             y: null,
             quantidade: Number(quantidade)
-          };
+        }
         
-          // Adicione a nova peça à listagem
-          setListagem([...listagem, novaPeca]);
+          setListagem([...listagem, novaPeca])
         
-          // Adicione a nova peça à listaCorte, levando em conta a quantidade
-          const corte = Array.from({ length: novaPeca.quantidade }, () => ({
-            peca: true,
-            w: Number(w),
-            h: Number(h),
-            cortado: false,
-            x: null,
-            y: null
-          }));
-        
-          setListaCorte([...listaCorte, ...corte]);
-        
-          setW('');
-          setH('');
-          setQuantidade('');
+          setW('')
+          setH('')
+          setQuantidade('')
 
     }
 
-    useEffect(() => {
-        setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')));
-      
-        // Verifique se há dados no localStorage e atualize a listagem, se houver
-        const listagemData = JSON.parse(localStorage.getItem('listagemData'));
-        if (listagemData) {
-          setListagem([...listagemData]);
-        }
-      
-        localStorage.setItem('storageHandler', '0');
-    }, [storageHandler]);
+    function handleEspaçosVazios() {
+
+        let chapa = [{w: Number(wChapa), h: Number(hChapa), y: 0, x: 0, peca: false}]
+
+        setEspaçosVazios([...espaçosVazios, chapa])
+
+        setWChapa('')
+        setHChapa('')
+
+    }
+
 
     useEffect(() => {
+        setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
+      
+        const listagemData = JSON.parse(localStorage.getItem('listagemData'))
+        if (listagemData) {
+          setListagem([...listagemData])
+        }
+      
+        localStorage.setItem('storageHandler', '0')
+
+        console.log('TESTE')
+    }, [storageHandler])
+
+    useEffect(() => {
+        
         const newListaCorte = listagem.reduce((acc, peca) => {
           const corte = Array.from({ length: peca.quantidade }, () => ({
             peca: true,
@@ -181,60 +149,21 @@ const CutPage = () => {
             cortado: false,
             x: null,
             y: null
-          }));
+          }))
           return [...acc, ...corte];
-        }, []);
+        }, [])
       
         setListaCorte(newListaCorte);
     }, [listagem]);
 
 
-    // function handleListaCorte() {
+    useEffect(() => {
 
-    //     let peca = {peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null, quantidade: Number(quantidade)}
-    //     setListagem([...listagem, peca])
+        if(savedList)  {
+            getSavedList()
+        }
 
-    //     let corte = []
-
-    //     for(let i = 0; i < peca.quantidade; i++) {
-
-    //         corte.push({peca: true, w: Number(w),h: Number(h), cortado: false, x: null, y: null})
-
-    //     }
-
-    //     setListaCorte([...listaCorte, ...corte])
-
-
-    //     setW('')
-    //     setH('')
-    //     setQuantidade('')
-
-    // }
-
-
-
-    function handleEspaçosVazios() {
-
-        let chapa = [{w: Number(wChapa), h: Number(hChapa), y: 0, x: 0, peca: false}]
-
-        setEspaçosVazios([...espaçosVazios, chapa])
-
-    }
-
-    // useEffect(() => {
-
-    //     setStorageHandler(JSON.parse(localStorage.getItem('storageHandler')))
-
-    //     if (listagemData) {
-
-    //         setListaCorte([...listaCorteData])
-    //         setListagem([...listagemData])
-
-    //     }
-
-    //     localStorage.setItem('storageHandler', '0')
-
-    // }, [storageHandler])
+    }, [])
 
     useEffect(() => {
 
@@ -252,23 +181,27 @@ const CutPage = () => {
                 <div className="w-full md:w-2/5 flex flex-col gap-3 px-4">
                     
                         <div className="flex flex-col  gap-2">
-                            <p className="text-2xl font-semibold">Peças:</p>
-                            <Input type='number' className={'w-32'} value={w} placeholder="Largura" onChange={(e) => {
+                            <p className="text-2xl font-extrabold text-zinc-800">Peças:</p>
+                            <Input type='number' className={'w-24'} value={w} placeholder="Largura" onChange={(e) => {
                                 setW(e.target.value)
                             }}/>   
-                            <Input type='number' className={'w-32'} value={h} placeholder="Altura" onChange={(e) => {
+                            <Input type='number' className={'w-24'} value={h} placeholder="Altura" onChange={(e) => {
                                 setH(e.target.value)
                             }}/> 
-                            <Input type='number' className={'w-32'} value={quantidade} placeholder="Quantidade" onChange={(e) => {
+                            <Input type='number' className={'w-24 text-md'} value={quantidade} placeholder="Qntd" onChange={(e) => {
                                 setQuantidade(e.target.value)
                             }}/>
-                            <Button onClick={handleListaCorte} content="ADICIONAR" className="w-28"/>
+                            <BsFillPlusSquareFill 
+                            className="cursor-pointer text-zinc-800 hover:text-black"
+                            size={30}
+                            onClick={handleListaCorte}
+                            />
 
                         </div>
 
                         
                         <div className="w-1/2 overflow-y-scroll h-60 px-2 border-2 border-zinc-600 rounded-md shadow-md shadow-zinc-400">
-                            <h2 className="font-semibold text-2xl">Lista de Corte</h2>
+                            <h2 className="font-extrabold text-zinc-800 text-xl md:text-2xl">Lista de Corte</h2>
                             {listagem.map((peca) => (
 
                                 <div key={listagem.indexOf(peca)} className="flex items-center gap-1">
@@ -277,25 +210,35 @@ const CutPage = () => {
                                     
                                     id={listagem.indexOf(peca)}
                                     >{`${peca.w} x ${peca.h} ${peca.quantidade > 1 ? `x ${peca.quantidade}` : ''}`}</p> 
-                                    <div
-                                    className="cursor-pointer bg-zinc-700 w-6 h-6 rounded-sm flex items-center justify-center text-white hover:bg-zinc-800"
+                                    <AiFillCloseCircle 
+                                    color="#27272a"
+                                    className="cursor-pointer"
+                                    size={25}
                                     onClick={() => {handleDeleteLista(listagem.indexOf(peca))}}
-                                    >x</div>
+                                    />
 
                                 </div>
                             ))}
                         </div>
 
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="checkbox" id="" onChange={handleDirecaoCorte} />
-                            <label htmlFor="checkbox" className="text-xl font-semibold">Corte unidirecional</label>
+                        <div className="flex items-center">
+                            <Checkbox 
+                            color="info"
+                            onChange={handleDirecaoCorte}
+                            />
+                            <p className="text-lg font-semibold">Corte unidirecional</p>
                         </div>
 
                         <div className="flex gap-2">
-                            <Button onClick={() => setCutClick(!cutClick)} content="CORTAR" className="w-28"/>
-                            <Button onClick={saveLocal} content="REFAZER" className="w-28"/>
-                            <Button  onClick={reload} content="LIMPAR" className="w-28"/>
-                            <Button content="SALVAR" className="w-28" onClick={() => saveData()}/>
+                            <div className="flex flex-col gap-2">
+                                <Button onClick={() => setCutClick(!cutClick)} content="CORTAR" className="w-28"/>
+                                <Button onClick={saveLocal} content="REFAZER" className="w-28"/>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <Button  onClick={reload} content="LIMPAR" className="w-28"/>
+                                <Button content="SALVAR" className="w-28" onClick={() => saveData()}/>
+                            </div>
                         </div>
 
 
@@ -303,17 +246,21 @@ const CutPage = () => {
 
                 </div>
 
-                <div className="w-full md:w-3/5 flex flex-col gap-3 px-10">
+                <div className="w-full md:w-3/5 flex flex-col gap-3 px-5 mt-5 md:mt-0">
                     <div className="flex flex-col md:flex-row gap-2">
-                        <p className="text-2xl font-semibold">Chapa:</p>
+                        <p className="text-xl md:text-2xl font-extrabold text-zinc-800">Chapa:</p>
 
-                        <Input type='number' className={'w-32'} placeholder="Largura" onChange={(e) => {
+                        <div className="flex gap-1 items-center">
+                            <Input type='number' className={'w-24'} placeholder="Largura" onChange={(e) => {
                             setWChapa(e.target.value)
-                        }}/>
-                        <Input type='number'className={'w-32'} placeholder="Altura" onChange={(e) => {
+                            }}/>
+                            <Input type='number'className={'w-24'} placeholder="Altura" onChange={(e) => {
                             setHChapa(e.target.value)
-                        }}/>
-                        <Button onClick={handleEspaçosVazios} content="ADICIONAR" className="w-28"/>
+                            }}/>
+                            <BsFillPlusSquareFill className="cursor-pointer text-zinc-800 hover:text-black" size={30} onClick={handleEspaçosVazios}/>
+                        </div>
+
+                        
 
                     </div>
                     <Shapes cutClick={cutClick}  espaçosVazios={espaçosVazios} listaCanvas={listaCanvas} listaCorte={listaCorte} direcaoCorte={direcaoCorte}/>

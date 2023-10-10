@@ -6,20 +6,21 @@ import axios from "axios";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
 
-
 const CutLists = () => {
 
     const [listagem, setListagem] = useState([])
+    const [click, setClick] = useState(true)
 
-    const { sessionId, setSessionId } = useContext(LoginContext)
+    const { sessionId } = useContext(LoginContext)
 
-    const { savedList, setSavedList } = useContext(SavedListContext)
+    const { setSavedList } = useContext(SavedListContext)
 
 
     async function getListaCorte() {
         await axios.get(`http://localhost:3000/listas/${sessionId}`)
             .then((response) => {
                 setListagem([...response.data])
+                console.log(response.data)
             })
             .catch((err) => {
                 console.error(err)
@@ -30,17 +31,19 @@ const CutLists = () => {
         await axios.post(`http://localhost:3000/listas/delete/${sessionId}`, {
             id: id,
         })
-        .then()
+        .then(() => window.location.reload())
         .catch((err) => {
             console.error(err)
         })
+
     }
 
     useEffect(() => {
 
         getListaCorte() 
+        setClick(!click)
 
-    }, [listagem])
+    }, [click])
 
 
 
@@ -49,14 +52,14 @@ const CutLists = () => {
             {sessionId ? (
                 <div>
                     <NavBar />
-                    <div className="grid grid-cols-6 p-4 gap-2">
+                    <div className="grid grid-cols-2 md:grid-cols-6 p-4 gap-2">
                         {listagem.map(listas => (
                             <div className="flex flex-col items-center gap-1">
                                 <div key={listas.id} className="flex flex-col w-full overflow-y-scroll h-60 px-2 border-2 border-zinc-600 rounded-md shadow-md shadow-zinc-400">
-                                    <h2 className="text-xl font-bold">{`Lista ${listas.date.substring(0, 10)}`}</h2>
+                                    <h2 className="text-xl font-extrabold">{`${listas.date.substring(0, 10)}`}</h2>
                                     {listas.lista.map(peca => (
                                         <div>
-                                            <p>{peca.w} x {peca.h} x {peca.quantidade}</p>
+                                            <p className="font-thin text-xl">{peca.w} x {peca.h} x {peca.quantidade}</p>
                                         </div>
                                     ))
                                     }
@@ -64,8 +67,11 @@ const CutLists = () => {
                                 <div className="flex gap-1">
                                     <Button className={'w-24'} content={'REMOVER'} onClick={() => {
                                         handleDeleteCorte(listas.id)
+                                        setClick(!click)
                                     }}/>
-                                    <Link to='/' className={'w-24'} content={'CORTAR'} onClick={() => {
+                                    <Link 
+                                    className={`w-24 font-bold shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg`}
+                                    to='/' content={'CORTAR'} onClick={() => {
                                         setSavedList(listas.id)
                                     }}>CORTAR</Link>
 

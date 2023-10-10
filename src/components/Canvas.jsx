@@ -7,6 +7,9 @@ const Canvas = (props) => {
 
     let { listaDesenho, size, id } = props
 
+    console.log(listaDesenho)
+
+
     let width = size.w
     let height = size.h
 

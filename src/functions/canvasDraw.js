@@ -1,5 +1,7 @@
 const canvasDraw = (context, listaDesenho) => {
 
+    console.log(listaDesenho)
+
     listaDesenho.map((desenho => {
 
         if(desenho.peca) {

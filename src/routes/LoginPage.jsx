@@ -53,9 +53,9 @@ const LoginPage = () => {
         <div>
             {!sessionId ? (
                 <div className="w-screen h-screen flex flex-col items-center justify-center bg-zinc-200">
-                    <div className="gap-4 bg-zinc-300 md:w-1/4 md:h-[300px] flex flex-col items-center p-4 rounded-md shadow-lg shadow-zinc-800 border-[1px] border-zinc-500">
+                    <div className="gap-4 bg-zinc-300 w-[300px] flex flex-col items-center p-4 rounded-md shadow-lg shadow-zinc-800 border-[1px] border-zinc-500">
                         <h1 className="text-zinc-800 text-4xl font-extrabold">{haveAccount ? `Fazer login` : 'Criar conta'}</h1>
-                        <div className="bg-zinc-400 p-4 border-[1px] border-zinc-500 rounded-md h-44 flex flex-col gap-7 items-center">
+                        <div className="bg-zinc-400  p-4 border-[1px] border-zinc-500 rounded-md h-52 flex flex-col gap-7 items-center">
                             <form action="post" className="flex flex-col items-center gap-3">
                                 <Input onChange={(e) => {
                                     setEmail(e.target.value)
@@ -68,10 +68,10 @@ const LoginPage = () => {
                             <p className="text-zinc-700">{haveAccount ? `Não possui conta?` : 'Já possui conta?'}<span onClick={() => {
                                 setHaveAccount(!haveAccount)
                             }} className="text-zinc-600 hover:underline hover:text-zinc-900 cursor-pointer">Clique aqui</span></p>
+                            <Link to={'/'}>Continuar sem login</Link>
             
                         </div>
                     </div>
-                    <Link to={'/'}>Continuar sem login</Link>
                     <p>{error}</p>
                 </div>
             ) : (
