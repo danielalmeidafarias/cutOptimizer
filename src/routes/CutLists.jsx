@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 
 const CutLists = () => {
 
+    const apiUrl = 'https://cutoptimizerapi.onrender.com'
+
     const [listagem, setListagem] = useState([])
-    const [click, setClick] = useState(true)
 
     const { sessionId } = useContext(LoginContext)
 
@@ -17,7 +18,7 @@ const CutLists = () => {
 
 
     async function getListaCorte() {
-        await axios.get(`http://localhost:3000/listas/${sessionId}`)
+        await axios.get(`${apiUrl}/listas/${sessionId}`)
             .then((response) => {
                 setListagem([...response.data])
                 console.log(response.data)
@@ -28,10 +29,10 @@ const CutLists = () => {
     }
 
     async function handleDeleteCorte(id) {
-        await axios.post(`http://localhost:3000/listas/delete/${sessionId}`, {
+        await axios.post(`${apiUrl}/listas/delete/${sessionId}`, {
             id: id,
         })
-        .then(() => window.location.reload())
+        .then()
         .catch((err) => {
             console.error(err)
         })
@@ -41,9 +42,8 @@ const CutLists = () => {
     useEffect(() => {
 
         getListaCorte() 
-        setClick(!click)
 
-    }, [click])
+    }, [])
 
 
 
@@ -67,7 +67,7 @@ const CutLists = () => {
                                 <div className="flex gap-1">
                                     <Button className={'w-24'} content={'REMOVER'} onClick={() => {
                                         handleDeleteCorte(listas.id)
-                                        setClick(!click)
+                                        window.location.reload()
                                     }}/>
                                     <Link 
                                     className={`w-24 font-bold shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg`}

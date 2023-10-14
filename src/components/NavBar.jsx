@@ -37,13 +37,13 @@ const NavBar = () => {
     }
 
     return (  
-        <div className="shadow-md shadow-zinc-400 w-screen bg-zinc-200 flex flex-col py-3 px-3 md:justify-center">
+        <div className="transition shadow-md shadow-zinc-400 w-screen bg-zinc-200 flex flex-col py-3 px-3 md:justify-center">
 
             <MobileButton onClick={handleClick} click={click}/>
 
             {/* NavBar telas grandes */}
             <nav className=" hidden md:flex w-full justify-between items-center gap-5 px-10">
-                <h2 className="text-2xl font-extrabold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                <h2 className="text-2xl font-extrabold text-zinc-700">{'< CutOptimizer />'}</h2>
                 <div className="flex items-center gap-24">
                     <NavItem to={'/'} content={'Cortes'}/>
                     <NavItem to={'/listas'} content={'Lista de tarefas'}/>
@@ -53,7 +53,7 @@ const NavBar = () => {
             
             {/* NavBar mobile */}
             <nav className={click ? `hidden w-screen flex-col items-center gap-5 px-12 justify-evenly transition-all` : `flex first-line:w-screen bg-zinc-200 md:hidden flex-col items-center gap-5 px-12 justify-evenly transition-all`}>
-                <h2 className="text-2xl font-extrabold text-zinc-700">{'<App Marcenaria/>'}</h2>
+                <h2 className="text-2xl font-extrabold text-zinc-700">{'< CutOptimizer />'}</h2>
                 
                 <NavItem to={'/'} content={'Cortes'}/>
                 <NavItem to={'/listas'} content={'Lista de tarefas'}/>

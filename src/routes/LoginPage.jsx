@@ -6,6 +6,8 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 
 const LoginPage = () => {
+    
+    const apiUrl = 'https://cutoptimizerapi.onrender.com'
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -20,7 +22,7 @@ const LoginPage = () => {
 
     const handleLogin = async () => {  
 
-        await axios.post('http://localhost:3000/login', {
+        await axios.post(`${apiUrl}/login`, {
             email: email,
             password: senha
         }) .then((response) => {
@@ -35,7 +37,7 @@ const LoginPage = () => {
 
     const handleCreateUser = async () => {
 
-        await axios.post('http://localhost:3000/login/create', {
+        await axios.post(`${apiUrl}/login/create`, {
             email: email,
             password: senha
         }) .then((response) => {

@@ -13,6 +13,8 @@ import { Checkbox } from "@mui/material";
 
 const CutPage = () => {
 
+    const apiUrl = 'https://cutoptimizerapi.onrender.com'
+
     const [listaCanvas, setListaCanvas] = useState([])
     const [espaçosVazios, setEspaçosVazios] = useState([])
     const [listagem, setListagem] = useState([])
@@ -37,7 +39,7 @@ const CutPage = () => {
 
     async function getSavedList() {
 
-        await axios.get(`http://localhost:3000/listas/${sessionId}/${savedList}`)
+        await axios.get(`${apiUrl}/listas/${sessionId}/${savedList}`)
         .then((response) => {
             console.log(response.data.lista)
             setListagem([...response.data.lista])
@@ -50,7 +52,7 @@ const CutPage = () => {
 
     async function saveData() {
 
-        await axios.post(`http://localhost:3000/listas/${sessionId}`, {
+        await axios.post(`${apiUrl}/listas/${sessionId}`, {
             lista: listagem,
             date: new Date(Date.now())
         })
@@ -178,17 +180,17 @@ const CutPage = () => {
             
             <div className="flex w-screen flex-col md:flex-row">
 
-                <div className="w-full md:w-2/5 flex flex-col gap-3 px-4">
+                <div className="w-[190%] md:w-2/5 flex flex-col gap-3 px-4">
                     
-                        <div className="flex flex-col  gap-2">
+                        <div className="flex md:flex-col gap-2">
                             <p className="text-2xl font-extrabold text-zinc-800">Peças:</p>
-                            <Input type='number' className={'w-24'} value={w} placeholder="Largura" onChange={(e) => {
+                            <Input type='number' className={'w-16 md:w-24 text-xs md:text-md'} value={w} placeholder="Largura" onChange={(e) => {
                                 setW(e.target.value)
                             }}/>   
-                            <Input type='number' className={'w-24'} value={h} placeholder="Altura" onChange={(e) => {
+                            <Input type='number' className={'w-16 md:w-24 text-xs md:text-md'} value={h} placeholder="Altura" onChange={(e) => {
                                 setH(e.target.value)
                             }}/> 
-                            <Input type='number' className={'w-24 text-md'} value={quantidade} placeholder="Qntd" onChange={(e) => {
+                            <Input type='number' className={'w-16 md:w-24 text-xs md:text-md'} value={quantidade} placeholder="Qntd" onChange={(e) => {
                                 setQuantidade(e.target.value)
                             }}/>
                             <BsFillPlusSquareFill 
@@ -251,10 +253,10 @@ const CutPage = () => {
                         <p className="text-xl md:text-2xl font-extrabold text-zinc-800">Chapa:</p>
 
                         <div className="flex gap-1 items-center">
-                            <Input type='number' className={'w-24'} placeholder="Largura" onChange={(e) => {
+                            <Input value={wChapa} type='number' className={'w-24'} placeholder="Largura" onChange={(e) => {
                             setWChapa(e.target.value)
                             }}/>
-                            <Input type='number'className={'w-24'} placeholder="Altura" onChange={(e) => {
+                            <Input value={hChapa} type='number'className={'w-24'} placeholder="Altura" onChange={(e) => {
                             setHChapa(e.target.value)
                             }}/>
                             <BsFillPlusSquareFill className="cursor-pointer text-zinc-800 hover:text-black" size={30} onClick={handleEspaçosVazios}/>
