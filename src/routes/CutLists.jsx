@@ -4,7 +4,7 @@ import { SavedListContext } from "../context/SavedListContext";
 import Button from "../components/Button";
 import axios from "axios";
 import NavBar from "../components/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CutLists = () => {
 
@@ -16,9 +16,7 @@ const CutLists = () => {
 
     const { setSavedList } = useContext(SavedListContext)
 
-    const [click, setClick] = useState(false)
-
-    console.log(sessionId)
+    const navigate = useNavigate()
 
     async function getListaCorte() {
         await axios.get(`${apiUrl}/listas/${sessionId}`)
@@ -71,16 +69,17 @@ const CutLists = () => {
                                     ))
                                     }
                                 </div>
-                                <div className="flex gap-1">
-                                    <Button className={'w-24'} content={'REMOVER'} onClick={() => {
-                                        handleDeleteCorte(listas.id)
-                                        setClick(!click)
-                                    }}/>
+                                <div className="flex flex-col md:flex-row gap-1">
+
                                     <Link 
                                     className={`w-24 font-bold shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg`}
                                     to='/' content={'CORTAR'} onClick={() => {
                                         setSavedList(listas.id)
                                     }}>CORTAR</Link>
+                                    <Button className={'w-24'} content={'REMOVER'} onClick={() => {
+                                        handleDeleteCorte(listas.id)
+                                        navigate(-1)
+                                    }}/>
 
                                 </div>
 
