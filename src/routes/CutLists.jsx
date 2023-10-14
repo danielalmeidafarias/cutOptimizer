@@ -44,7 +44,12 @@ const CutLists = () => {
 
     useEffect(() => {
 
-        getListaCorte() 
+        if(sessionId) {
+            
+            getListaCorte() 
+
+        }
+
 
     }, [click])
 
