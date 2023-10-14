@@ -1,10 +1,9 @@
 import { useEffect, useState, useContext } from "react";
-import { LoginContext } from "../context/LoginContext";
 import { SavedListContext } from "../context/SavedListContext";
 import Button from "../components/Button";
 import axios from "axios";
 import NavBar from "../components/NavBar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CutLists = () => {
 
@@ -12,31 +11,22 @@ const CutLists = () => {
 
     const [listagem, setListagem] = useState([])
 
-    const { sessionId, setSessionId } = useContext(LoginContext)
-
+    const [sessionId, setSessionId] = useState(sessionStorage.getItem('userId'))
+    
     const { setSavedList } = useContext(SavedListContext)
 
     const [deleteClick, setDeleteClick] = useState(false)
 
-    // const navigate = useNavigate()
 
-    const getListaCorte = async () =>  {
-
-        const response = await axios.get(`${apiUrl}/listas/${sessionId}`)
-
-        setListagem([...response.data])
-
+    async function getListaCorte() {
+        await axios.get(`${apiUrl}/listas/${sessionId}`)
+            .then((response) => {
+                setListagem([...response.data])
+            })
+            .catch((err) => {
+                console.error(err)
+            })
     }
-
-    // async function getListaCorte() {
-    //     await axios.get(`${apiUrl}/listas/${sessionId}`)
-    //         .then((response) => {
-    //             setListagem([...response.data])
-    //         })
-    //         .catch((err) => {
-    //             console.error(err)
-    //         })
-    // }
 
     async function handleDeleteCorte(id) {
         await axios.post(`${apiUrl}/listas/delete/${sessionId}`, {
