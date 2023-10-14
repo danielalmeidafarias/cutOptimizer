@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const LoginContext = createContext()
 
 export const LoginProvider = ({ children }) => {
-    const [sessionId, setSessionId] = useState(sessionStorage.getItem('userId'))
+    const [sessionId, setSessionId] = useState('')
 
 
     return (

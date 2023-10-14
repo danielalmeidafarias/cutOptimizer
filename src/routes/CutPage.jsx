@@ -33,7 +33,6 @@ const CutPage = () => {
 
     const [direcaoCorte, setDirecaoCorte] = useState(false)
 
-
     const [sessionId, setSessionId] = useState(sessionStorage.getItem('userId'))
 
     const { savedList } = useContext(SavedListContext)
