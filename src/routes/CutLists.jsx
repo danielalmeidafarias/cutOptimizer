@@ -18,6 +18,7 @@ const CutLists = () => {
 
     const [click, setClick] = useState(false)
 
+    console.log(sessionId)
 
     async function getListaCorte() {
         await axios.get(`${apiUrl}/listas/${sessionId}`)
