@@ -16,6 +16,8 @@ const CutLists = () => {
 
     const { setSavedList } = useContext(SavedListContext)
 
+    const [click, setClick] = useState(false)
+
 
     async function getListaCorte() {
         await axios.get(`${apiUrl}/listas/${sessionId}`)
@@ -43,8 +45,7 @@ const CutLists = () => {
 
         getListaCorte() 
 
-    }, [])
-
+    }, [click])
 
 
     return (
@@ -67,7 +68,7 @@ const CutLists = () => {
                                 <div className="flex gap-1">
                                     <Button className={'w-24'} content={'REMOVER'} onClick={() => {
                                         handleDeleteCorte(listas.id)
-                                        window.location.reload()
+                                        setClick(!click)
                                     }}/>
                                     <Link 
                                     className={`w-24 font-bold shadow-md shadow-zinc-400 text-lg flex justify-center items-center bg-zinc-800 text-zinc-200 hover:bg-zinc-950 transition-all duration-75 outline-none rounded-lg`}
