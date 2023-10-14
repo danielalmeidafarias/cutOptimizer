@@ -12,22 +12,31 @@ const CutLists = () => {
 
     const [listagem, setListagem] = useState([])
 
-    const { sessionId } = useContext(LoginContext)
+    const { sessionId, setSessionId } = useContext(LoginContext)
 
     const { setSavedList } = useContext(SavedListContext)
 
-    const navigate = useNavigate()
+    const [deleteClick, setDeleteClick] = useState(false)
 
-    async function getListaCorte() {
-        await axios.get(`${apiUrl}/listas/${sessionId}`)
-            .then((response) => {
-                setListagem([...response.data])
-                console.log(response.data)
-            })
-            .catch((err) => {
-                console.error(err)
-            })
+    // const navigate = useNavigate()
+
+    const getListaCorte = async () =>  {
+
+        const response = await axios.get(`${apiUrl}/listas/${sessionId}`)
+
+        setListagem([...response.data])
+
     }
+
+    // async function getListaCorte() {
+    //     await axios.get(`${apiUrl}/listas/${sessionId}`)
+    //         .then((response) => {
+    //             setListagem([...response.data])
+    //         })
+    //         .catch((err) => {
+    //             console.error(err)
+    //         })
+    // }
 
     async function handleDeleteCorte(id) {
         await axios.post(`${apiUrl}/listas/delete/${sessionId}`, {
@@ -42,14 +51,10 @@ const CutLists = () => {
 
     useEffect(() => {
 
-        if(sessionId) {
+        getListaCorte() 
+        setDeleteClick(false)
 
-            getListaCorte() 
-
-        }
-
-
-    }, [sessionId])
+    }, [deleteClick])
 
 
     return (
@@ -78,8 +83,8 @@ const CutLists = () => {
                                     }}>CORTAR</Link>
                                     <Button className={'w-24'} content={'REMOVER'} onClick={() => {
                                         handleDeleteCorte(listas.id)
-                                        navigate(-1)
-                                    }}/>
+                                        setDeleteClick(true)
+}}/>
 
                                 </div>
 

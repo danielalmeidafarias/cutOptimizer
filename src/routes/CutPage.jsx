@@ -138,7 +138,6 @@ const CutPage = () => {
       
         localStorage.setItem('storageHandler', '0')
 
-        console.log('TESTE')
     }, [storageHandler])
 
     useEffect(() => {

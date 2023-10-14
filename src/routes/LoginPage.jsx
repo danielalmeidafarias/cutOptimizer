@@ -15,7 +15,6 @@ const LoginPage = () => {
     const [haveAccount, setHaveAccount] = useState(true)
 
     const { sessionId, setSessionId } = useContext(LoginContext)
-    console.log(sessionId)
     
     const [error, setError] = useState('')
 
