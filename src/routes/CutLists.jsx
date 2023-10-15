@@ -41,8 +41,13 @@ const CutLists = () => {
 
     useEffect(() => {
 
-        getListaCorte() 
-        setDeleteClick(false)
+        if (sessionId) {
+
+            getListaCorte() 
+            setDeleteClick(false)
+
+        }
+
 
     }, [deleteClick])
 
