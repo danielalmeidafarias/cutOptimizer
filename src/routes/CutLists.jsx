@@ -19,7 +19,7 @@ const CutLists = () => {
 
 
     async function getListaCorte() {
-        if(sessionId) {
+        if(sessionId !== null) {
 
             await axios.get(`${apiUrl}/listas/${sessionId}`)
             .then((response) => {
