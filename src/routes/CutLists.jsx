@@ -19,13 +19,18 @@ const CutLists = () => {
 
 
     async function getListaCorte() {
-        await axios.get(`${apiUrl}/listas/${sessionId}`)
+        if(sessionId) {
+
+            await axios.get(`${apiUrl}/listas/${sessionId}`)
             .then((response) => {
                 setListagem([...response.data])
             })
             .catch((err) => {
                 console.error(err)
             })
+
+        }
+
     }
 
     async function handleDeleteCorte(id) {
@@ -41,12 +46,12 @@ const CutLists = () => {
 
     useEffect(() => {
 
-        if (sessionId) {
+        // if (sessionId) {
 
             getListaCorte() 
             setDeleteClick(false)
 
-        }
+        // }
 
 
     }, [deleteClick])
