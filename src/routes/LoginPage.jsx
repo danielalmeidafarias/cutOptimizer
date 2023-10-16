@@ -54,9 +54,9 @@ const LoginPage = () => {
     return (  
         <div>
             {!sessionId ? (
-                <div className="w-screen h-screen flex flex-col items-center bg-zinc-200">
+                <div className="w-screen h-screen flex flex-col items-center bg-zinc-200 pt-[5vh]">
 
-                <h1 className="text-4xl md:text-6xl font-extrabold text-zinc-800 pt-40 pb-14">{'<CutOptimizer/>'}</h1>
+                <h1 className="text-4xl md:text-6xl font-extrabold text-zinc-800 pb-14">{'<CutOptimizer/>'}</h1>
 
                     <div className="gap-4 bg-zinc-300 w-[300px] flex flex-col items-center p-4 rounded-md shadow-lg shadow-zinc-800 ">
                         <h1 className="text-zinc-800 text-4xl font-extrabold">{haveAccount ? `Fazer login` : 'Criar conta'}</h1>
