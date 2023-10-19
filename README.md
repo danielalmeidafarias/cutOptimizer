@@ -1,6 +1,7 @@
 # CutOptimizer
 Aplicativo web desenvolvido para facilitar o calculo de cortes de marcenaria. 
 Desenvolvido com React, Tailwindcss e Axios
+## link da aplicação: https://cutoptimizer.netlify.app/
 
 https://github.com/danielalmeidafarias/cutOptimizer/assets/79728041/ba430800-44ac-4af5-b5ad-7ed156dbd1b8
 
