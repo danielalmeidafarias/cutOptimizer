@@ -8,7 +8,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const LoginPage = () => {
     
-    const apiUrl = import.meta.env.API_ADDRESS
+    const apiUrl = import.meta.env.VITE_API_ADDRESS
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
