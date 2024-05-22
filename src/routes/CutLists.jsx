@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const CutLists = () => {
 
-    const apiUrl = 'https://cutoptimizerapi.onrender.com'
+   const apiUrl = import.meta.env.API_ADDRESS
 
     const [listagem, setListagem] = useState([])
 
