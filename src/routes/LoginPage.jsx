@@ -8,7 +8,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const LoginPage = () => {
     
-    const apiUrl = 'https://cutoptimizerapi.onrender.com'
+    const apiUrl = import.meta.env.API_ADDRESS
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
