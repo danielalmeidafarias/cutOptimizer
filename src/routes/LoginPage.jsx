@@ -10,6 +10,8 @@ const LoginPage = () => {
     
     const apiUrl = import.meta.env.VITE_API_ADDRESS
 
+    console.log(apiUrl)
+
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
