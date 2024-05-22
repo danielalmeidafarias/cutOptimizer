@@ -13,7 +13,7 @@ import { Checkbox } from "@mui/material";
 
 const CutPage = () => {
 
-    const apiUrl = import.meta.env.API_ADDRESS
+   const apiUrl = import.meta.env.VITE_API_ADDRESS
 
     const [listaCanvas, setListaCanvas] = useState([])
     const [espaçosVazios, setEspaçosVazios] = useState([])
