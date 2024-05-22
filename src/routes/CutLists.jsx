@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const CutLists = () => {
 
-   const apiUrl = import.meta.env.API_ADDRESS
+   const apiUrl = import.meta.env.VITE_API_ADDRESS
 
     const [listagem, setListagem] = useState([])
 
