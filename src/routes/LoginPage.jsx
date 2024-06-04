@@ -72,7 +72,7 @@ const LoginPage = () => {
                                 }} type='password' className="w-full shadow-zinc-600" placeholder='Senha'/>
                             </form>
                             <Button content={haveAccount ? `Login` : `Criar`} onClick={haveAccount ? handleLogin : handleCreateUser} className="w-3/4 shadow-zinc-800" type='submit'/>
-                            <p className="text-zinc-700">{haveAccount ? `Não possui conta?` : 'Já possui conta?'}<span onClick={() => {
+                            <p className="text-zinc-700 text-xs ">{haveAccount ? `Não possui conta?` : 'Já possui conta?'}<span onClick={() => {
                                 setHaveAccount(!haveAccount)
                             }} className="text-zinc-800 hover:underline hover:text-zinc-900 cursor-pointer font-bold">Clique aqui</span></p>
             
